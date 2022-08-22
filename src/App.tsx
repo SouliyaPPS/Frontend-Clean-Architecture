@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Auth } from "./ui/Auth";
-import { User } from "./ui/User";
-import { Front } from "./ui/Front";
+import { Auth } from "@/ui/Auth";
+import { User } from "@/ui/User";
+import { Front } from "@/ui/Front";
 
-import { Header } from "./ui/Header";
+import { Header } from "@/ui/Header";
 
 function App() {
   return (
