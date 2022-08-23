@@ -5,7 +5,7 @@ import { cookies } from "./fakeData";
 const StoreContext = React.createContext<any>({});
 export const useStore = () => useContext(StoreContext);
 
-export const Provider: React.FC = ({ children }) => {
+export function Provider({ children }) {
   const [user, setUser] = useState();
   const [cart, setCart] = useState({ products: [] });
   const [orders, setOrders] = useState([]);
@@ -24,4 +24,4 @@ export const Provider: React.FC = ({ children }) => {
   return (
     <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
   );
-};
+}

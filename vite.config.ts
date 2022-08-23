@@ -1,11 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
-import vitePluginImp from 'vite-plugin-imp'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+import vitePluginImp from 'vite-plugin-imp';
+import reactRefresh from '@vitejs/plugin-react-refresh';
+import { VitePWA } from 'vite-plugin-pwa';
+import manifest from './manifest.json';
 
 function pathResolve(dir: string) {
-  return resolve(__dirname, '.', dir)
+  return resolve(__dirname, '.', dir);
 }
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +29,19 @@ export default defineConfig({
         },
       ],
     }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      devOptions: {
+        enabled: true,
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}', '**/*.{svg,png,jpg,gif}'],
+        cleanupOutdatedCaches: false,
+      },
+      includeAssets: ['./public/favicon.ico', './public/pwa-192x192.png', './public/vite.svg'],
+      manifest,
+    }),
   ],
   base: './',
   resolve: {
@@ -44,4 +59,11 @@ export default defineConfig({
       },
     },
   },
-})
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+      },
+    },
+  },
+});
